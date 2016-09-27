@@ -1,7 +1,8 @@
 import React from 'react'
+import QL from 'components/QuestionList'
 import './Wiki.scss'
 
-export const Wiki = () => (
+export const Wiki = (props) => (
   <div >
     <div className='Wiki_component'>
       <section className='container'>
@@ -15,9 +16,15 @@ export const Wiki = () => (
       search_filter
     </div>
     <div className='col-xs-9 search_content'>
-      search_content
+      {console.log(props.wiki)}
+      <QL getQuestion={props.getQuestion} data={props.wiki} />
     </div>
   </div>
 )
+
+Wiki.propTypes = {
+  wiki: React.PropTypes.object.isRequired,
+  getQuestion: React.PropTypes.func.isRequired
+}
 
 export default Wiki

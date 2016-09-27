@@ -1,0 +1,42 @@
+.QuestionItem {
+  border-bottom: 1px solid #cecece;
+  padding: 20px 15px;
+
+  .q-icon {
+    position: absolute;
+  }
+
+  .q-content {
+    padding-left: 50px;
+  }
+
+  .title {
+    color: #0088cc;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+  }
+
+  .title:hover {
+    border-bottom: solid 1px #0088cc;
+  }
+
+  .main-text {
+    margin: 5px 0 10px;
+    word-wrap: break-word;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .info {
+    margin: 3px 0;
+    color: #888;
+    font-size: 6px
+  }
+
+  .info-replies, .info-likes {
+    margin-right: 15px;
+  }
+}

@@ -1,7 +1,5 @@
 import { injectReducer } from '../../store/reducers'
 
-import HomeView from '../Home/components/HomeView'
-
 export default (store) => ({
   // path: 'wiki',
   getComponent (nextState, cb) {
@@ -9,7 +7,7 @@ export default (store) => ({
       const Wiki = require('./containers/WikiContainer').default
       const reducer = require('./modules/Wiki').default
 
-      injectReducer(store, { key: 'Wiki', reducer })
+      injectReducer(store, { key: 'wiki', reducer })
       cb(null, Wiki)
     }, 'Wiki')
   }

@@ -1,15 +1,14 @@
 import { connect } from 'react-redux'
-import { increment, doubleAsync } from '../modules/Wiki'
+import { getQuestion } from '../modules/Wiki'
 
 import Wiki from '../components/Wiki'
 
 const mapActionCreators = {
-  increment: () => increment(1),
-  doubleAsync
+  getQuestion
 }
 
 const mapStateToProps = (state) => ({
-  counter: state.counter
+  wiki: state.wiki
 })
 
 export default connect(mapStateToProps, mapActionCreators)(Wiki)
