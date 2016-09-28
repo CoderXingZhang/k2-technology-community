@@ -25,6 +25,7 @@ const config = {
   // ----------------------------------
   server_host : ip.address(), // use string 'localhost' to prevent exposure on local network
   server_port : process.env.PORT || 3002,
+  data_host   : 'http://localhost:9200/wiki',
 
   // ----------------------------------
   // Compiler Configuration
@@ -82,7 +83,8 @@ config.globals = {
   '__PROD__'     : config.env === 'production',
   '__TEST__'     : config.env === 'test',
   '__COVERAGE__' : !argv.watch && config.env === 'test',
-  '__BASENAME__' : JSON.stringify(process.env.BASENAME || '')
+  '__BASENAME__' : JSON.stringify(process.env.BASENAME || ''),
+  '__DATAHOST__' : JSON.stringify(config.data_host)
 }
 
 // ------------------------------------

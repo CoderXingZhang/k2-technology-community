@@ -9,7 +9,7 @@ export class QuestionList extends React.Component {
   props: Props;
 
   componentWillMount () {
-    this.props.getQuestion()
+    this.props.getQuestion({ 'sort': [{ 'title': 'asc' }], 'query': { 'match_all': {} }, 'from': 0, 'size': 100 })
   }
 
   render () {

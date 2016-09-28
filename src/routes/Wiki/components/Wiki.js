@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 import QL from 'components/QuestionList'
 import './Wiki.scss'
 
@@ -9,14 +10,15 @@ export const Wiki = (props) => (
         <input className='search_input' placeholder='搜索' />
         <button className='search_submit_btn'>搜索</button>
         {' 或 '}
-        <button className='search_answer_btn'>提问</button>
+        <Link to='/new'>
+          <button className='search_answer_btn'>提问</button>
+        </Link>
       </section>
     </div>
     <div className='col-xs-3 search_filter'>
-      search_filter
+      {}
     </div>
     <div className='col-xs-9 search_content'>
-      {console.log(props.wiki)}
       <QL getQuestion={props.getQuestion} data={props.wiki} />
     </div>
   </div>

@@ -1,6 +1,6 @@
 export const RECEIVE_QUESTION = 'Wiki.RECEIVE_QUESTION'
 export const GET_QUESTION = 'Wiki.GET_QUESTION'
-const serviceUrl = 'http://localhost:9200/wiki'
+const dataHost = __DATAHOST__
 
 function receiveQuestion (data) {
   return {
@@ -11,7 +11,7 @@ function receiveQuestion (data) {
 
 export function getQuestion (query) {
   return (dispatch) => {
-    fetch(`${serviceUrl}/_search`, {
+    fetch(`${dataHost}/_search`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
