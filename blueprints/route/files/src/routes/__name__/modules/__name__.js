@@ -1,25 +1,11 @@
-// ------------------------------------
-// Constants
-// ------------------------------------
 export const COUNTER_INCREMENT = '<%= pascalEntityName %>.COUNTER_INCREMENT'
 
-// ------------------------------------
-// Actions
-// ------------------------------------
-export function increment (value = 1) {
+export function increment (date) {
   return {
     type: COUNTER_INCREMENT,
-    payload: value
+    data
   }
 }
-
-/*  This is a thunk, meaning it is a function that immediately
-    returns a function for lazy evaluation. It is incredibly useful for
-    creating async actions, especially when combined with redux-thunk!
-
-    NOTE: This is solely for demonstration purposes. In a real application,
-    you'd probably want to dispatch an action of COUNTER_DOUBLE and let the
-    reducer take care of this logic.  */
 
 export const doubleAsync = () => {
   return (dispatch, getState) => {
@@ -37,16 +23,14 @@ export const actions = {
   doubleAsync
 }
 
-// ------------------------------------
-// Action Handlers
-// ------------------------------------
 const ACTION_HANDLERS = {
-  [COUNTER_INCREMENT]: (state, action) => state + action.payload
+  [COUNTER_INCREMENT]: (state, action) => {
+    return Object.assign({}, state, {
+      'stateName': state.date
+    })
+  }
 }
 
-// ------------------------------------
-// Reducer
-// ------------------------------------
 const initialState = 0
 export default function counterReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]

@@ -1,6 +1,7 @@
 import React from 'react'
 import './NewForm.scss'
 import TinyMCE from 'react-tinymce'
+// import 'tinymce'
 import { Link } from 'react-router'
 
 type Props = {

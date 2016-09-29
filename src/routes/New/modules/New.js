@@ -22,7 +22,7 @@ export function publish (title, content, author) {
         title,
         author,
         content,
-        createdTime: date.toLocaleString(),
+        createdTime: date.getTime(),
         lastTime: '',
         replies: 0,
         likes: 0

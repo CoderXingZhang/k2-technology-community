@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 import './QuestionItem.scss'
 
 type Props = {
@@ -14,11 +15,17 @@ export class QuestionItem extends React.Component {
     //   this.refs.main.innerHTML = tmp.childNodes[0].innerText +
     //     [].slice.call(tmp.childNodes).find((n, i) => { return (i > 0 && n.innerText) }).innerText
     // } else {
-    this.refs.main.innerHTML = tmp.childNodes[0].innerText
+    //   this.refs.main.innerHTML = tmp.childNodes[0].innerText
     // }
+    this.refs.main.innerHTML = tmp.childNodes[0].innerText
+    // (tmp.childNodes[0].innerText.length < 200)
+    // ? `${tmp.childNodes[0].innerText}<br />` +
+    //   [].slice.call(tmp.childNodes).find((n, i) => { return (i > 0 && n.innerText) }).innerText
+    // : tmp.childNodes[0].innerText
   }
 
   render () {
+    var date = new Date(this.props.q._source.createdTime)
     return (
       <div className='QuestionItem'>
         <div className='q-icon'>
@@ -26,12 +33,14 @@ export class QuestionItem extends React.Component {
         </div>
         <div className='q-content'>
           <section>
-            <span className='title'>{this.props.q._source.title}</span>
+            <Link to={`/question/${this.props.q._id}`} className='title'>
+              {this.props.q._source.title}
+            </Link>
           </section>
           <section>
             <p ref='main' className='main-text' />
             <p className='info'>
-              由 {this.props.q._source.author} 创建于 {this.props.q._source.createdTime}
+              由 {this.props.q._source.author} 创建于 {date.toLocaleString()}
             </p>
             <p className='info'>
               <span className='info-replies'>回复: {this.props.q._source.replies}</span>
