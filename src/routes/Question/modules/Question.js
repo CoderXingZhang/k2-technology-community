@@ -26,9 +26,7 @@ export function fetchReplies (qId) {
       },
       body: JSON.stringify({
         query: {
-          match: {
-            qId
-          }
+          match: { qId }
         }
       })
     })

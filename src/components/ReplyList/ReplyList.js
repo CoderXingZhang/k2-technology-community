@@ -3,8 +3,10 @@ import RI from 'components/ReplyItem'
 
 type Props = {
   id: String,
+  cb: String,
   replies: Object,
-  getReplies: Function
+  getReplies: Function,
+  reply: Function
 };
 export class ReplyList extends React.Component {
   props: Props;
@@ -19,7 +21,7 @@ export class ReplyList extends React.Component {
         {
           this.props.replies && this.props.replies.hits.hits.map((r, i) => {
             return (
-              <RI key={i} r={r} />
+              <RI key={i} r={r} cb={this.props.cb} reply={this.props.reply} qId={this.props.id} />
             )
           })
         }

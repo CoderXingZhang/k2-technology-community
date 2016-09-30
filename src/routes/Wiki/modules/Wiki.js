@@ -71,15 +71,12 @@ const ACTION_HANDLERS = {
     })
   },
   [UPDATE_REPLIES]: (state, action) => {
-    // var tmp = state
-    // tmp.ql.hits.hits.map((q) => {
-    //   if (q._id === action.id) {
-    //     q._source.replies = action.data
-    //   }
-    // })
-    // return Object.assign({}, state, {
-    //   ql: tmp
-    // })
+    state.ql.hits.hits.map((q) => {
+      if (q._id === action.id) {
+        q._source.replies = action.data.count
+      }
+    })
+    return Object.assign({}, state, {})
   }
 }
 
