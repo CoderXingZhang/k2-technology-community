@@ -59,7 +59,7 @@ export class QuestionSearch extends React.Component {
         <button type='submit' className='search_submit_btn' onClick={this.handleSearch}>搜索</button>
         {' 或 '}
         <Link to='/new'>
-          <button className='search_answer_btn'>提问</button>
+          <button className='search_answer_btn'>发起讨论</button>
         </Link>
       </section>
     )
