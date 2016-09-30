@@ -10,9 +10,10 @@ type Props = {
 export const Question = (props: Props) => (
   <div className='Question'>
     <Description id={props.routeParams.questionId} getDescription={props.fetchQuestion}
-      question={props.question.question} cb={props.question.cb} reply={props.reply} />
+      question={props.question.question} cb={props.question.cb} reply={props.reply}
+      doLike={props.updateLikes} />
     <RL getReplies={props.fetchReplies} replies={props.question.replies} id={props.routeParams.questionId}
-      reply={props.reply} cb={props.question.cb} />
+      reply={props.reply} cb={props.question.cb} doLike={props.updateLikes} />
   </div>
 )
 
@@ -20,7 +21,8 @@ Question.propTypes = {
   question: React.PropTypes.object.isRequired,
   fetchQuestion: React.PropTypes.func.isRequired,
   fetchReplies: React.PropTypes.func.isRequired,
-  reply: React.PropTypes.func.isRequired
+  reply: React.PropTypes.func.isRequired,
+  updateLikes: React.PropTypes.func.isRequired
 }
 
 export default Question

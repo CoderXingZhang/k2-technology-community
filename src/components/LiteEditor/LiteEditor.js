@@ -43,7 +43,7 @@ export class LiteEditor extends React.Component {
             content={this.state.content}
             config={{
               height: '200',
-              plugins: [ 'advlist autolink lists link image charmap print preview anchor',
+              plugins: [ 'advlist autolink lists link charmap print preview anchor',
                 'searchreplace visualblocks code fullscreen textcolor colorpicker',
                 'insertdatetime media table contextmenu paste code'],
               toolbar: 'insertfile undo redo | styleselect fontselect | bold italic | forecolor backcolor | alignleft' +

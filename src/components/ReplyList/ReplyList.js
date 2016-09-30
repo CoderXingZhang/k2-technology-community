@@ -6,7 +6,8 @@ type Props = {
   cb: String,
   replies: Object,
   getReplies: Function,
-  reply: Function
+  reply: Function,
+  doLike: Function
 };
 export class ReplyList extends React.Component {
   props: Props;
@@ -21,7 +22,8 @@ export class ReplyList extends React.Component {
         {
           this.props.replies && this.props.replies.hits.hits.map((r, i) => {
             return (
-              <RI key={i} r={r} cb={this.props.cb} reply={this.props.reply} qId={this.props.id} />
+              <RI key={i} r={r} cb={this.props.cb} reply={this.props.reply} qId={this.props.id}
+                doLike={this.props.doLike} />
             )
           })
         }

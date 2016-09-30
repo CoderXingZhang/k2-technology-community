@@ -1,12 +1,13 @@
 import { connect } from 'react-redux'
-import { fetchQuestion, reply, fetchReplies } from '../modules/Question'
+import { fetchQuestion, reply, fetchReplies, updateLikes } from '../modules/Question'
 
 import Question from '../components/Question'
 
 const mapActionCreators = {
   fetchQuestion,
   fetchReplies,
-  reply
+  reply,
+  updateLikes
 }
 
 const mapStateToProps = (state) => ({

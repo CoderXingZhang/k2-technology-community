@@ -7,7 +7,8 @@ type Props = {
   cb: String,
   question: Object,
   getDescription: Function,
-  reply: Function
+  reply: Function,
+  doLike: Function
 };
 export class QuestionDescription extends React.Component {
   props: Props;
@@ -15,9 +16,14 @@ export class QuestionDescription extends React.Component {
   constructor (props) {
     super(props)
     this.handleReplyState = this.handleReplyState.bind(this)
+    this.handleLike = this.handleLike.bind(this)
     this.state = {
       replyState: false
     }
+  }
+
+  handleLike () {
+    this.props.doLike('question', this.props.question._id)
   }
 
   handleReplyState () {
@@ -51,7 +57,9 @@ export class QuestionDescription extends React.Component {
           <div ref='content' className='question-content-maintext' />
           <div className='quesion-created-time'>发布日期 {date.toLocaleString()}</div>
           <button className='question-reply-btn' onClick={this.handleReplyState}>回复</button>
-          <button className='question-agree-btn'>我也有此问题</button>
+          <button className='question-agree-btn' onClick={this.handleLike}>
+            我也有此问题({this.props.question && this.props.question._source.likes})
+          </button>
         </section>
         {
           this.state.replyState && (

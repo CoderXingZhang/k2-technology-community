@@ -2,20 +2,10 @@ import React from 'react'
 import QI from 'components/QuestionItem'
 
 type Props = {
-  data: Object,
-  getQuestion: Function
+  data: Object
 };
 export class QuestionList extends React.Component {
   props: Props;
-
-  componentWillMount () {
-    this.props.getQuestion({
-      'sort': [{ 'createdTime': 'desc' }],
-      'query': { 'match_all': {} },
-      'from': 0,
-      'size': 100
-    })
-  }
 
   render () {
     return (

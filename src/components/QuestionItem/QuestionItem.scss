@@ -2,6 +2,13 @@
   border-bottom: 1px solid #cecece;
   padding: 20px 15px;
 
+  em {
+    background-color: #ffffcd;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0 1px;
+  }
+
   .q-icon {
     position: absolute;
   }
@@ -25,10 +32,15 @@
   }
 
   .main-text {
+    overflow: hidden;
     margin: 5px 0 10px;
     word-wrap: break-word;
     font-size: 16px;
     line-height: 1.5;
+
+    img, div, frame {
+      width: 100%;
+    }
   }
 
   .info {

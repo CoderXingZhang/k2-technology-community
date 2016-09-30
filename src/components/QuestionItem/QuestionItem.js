@@ -8,16 +8,18 @@ type Props = {
 export class QuestionItem extends React.Component {
   props: Props;
 
-  componentDidMount () {
-    var tmp = document.createElement('div')
-    tmp.innerHTML = this.props.q._source.content
+  componentDidUpdate () {
+    // var tmp = document.createElement('div')
+    // tmp.innerHTML = this.props.q._source.content
     // if (tmp.childNodes[0].innerText.length < 200) {
     //   this.refs.main.innerHTML = tmp.childNodes[0].innerText +
     //     [].slice.call(tmp.childNodes).find((n, i) => { return (i > 0 && n.innerText) }).innerText
     // } else {
     //   this.refs.main.innerHTML = tmp.childNodes[0].innerText
     // }
-    this.refs.main.innerHTML = tmp.childNodes[0].innerText
+    this.refs.main.innerHTML = this.props.q.highlight
+      ? this.props.q.highlight.content[0]
+      : this.props.q._source.content
     // (tmp.childNodes[0].innerText.length < 200)
     // ? `${tmp.childNodes[0].innerText}<br />` +
     //   [].slice.call(tmp.childNodes).find((n, i) => { return (i > 0 && n.innerText) }).innerText

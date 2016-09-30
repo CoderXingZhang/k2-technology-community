@@ -25,7 +25,7 @@ const config = {
   // ----------------------------------
   server_host : ip.address(), // use string 'localhost' to prevent exposure on local network
   server_port : process.env.PORT || 3002,
-  data_host   : 'http://localhost:9200/wiki',
+  data_host   : 'http://10.1.10.36:9200/wiki',
 
   // ----------------------------------
   // Compiler Configuration

@@ -6,8 +6,42 @@ export const RECEIVE_QUESTION = 'Question.RECEIVE_QUESTION'
 export const FETCH_REPLIES = 'Question.FETCH_REPLIES'
 export const RECEIVE_REPLIES = 'Question.RECEIVE_REPLIES'
 
-export const ANSWER = 'New.ANSWER'
-export const ANSWER_SUCCESS = 'New.ANSWER_SUCCESS'
+export const ANSWER = 'Question.ANSWER'
+export const ANSWER_SUCCESS = 'Question.ANSWER_SUCCESS'
+
+export const UPDATE_LIKES = 'Question.UPDATE_LIKES'
+
+export function updateLikes (type, id, qId) {
+  return (dispatch) => {
+    fetch(`${dataHost}/${type}/${id}/_update`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        script: 'ctx._source.likes += 1'
+      })
+    })
+      .then(function (res) {
+        if (res.status >= 400) {
+          alert(`Error Status: ${res.status}`)
+          throw new Error('Fetch fail')
+        }
+        return res.json()
+      })
+      .then(function (json) {
+        return type === 'question'
+          ? dispatch(fetchQuestion(json._id))
+          : new Promise((resolve) => {
+            setTimeout(() => {
+              dispatch(fetchReplies(qId))
+              resolve()
+            }, 1000)
+          })
+      })
+  }
+}
 
 function receiveReplies (data) {
   return {
@@ -27,7 +61,8 @@ export function fetchReplies (qId) {
       body: JSON.stringify({
         query: {
           match: { qId }
-        }
+        },
+        sort: [{ 'createdTime': 'asc' }]
       })
     })
       .then(function (res) {
@@ -38,6 +73,7 @@ export function fetchReplies (qId) {
         return res.json()
       })
       .then(function (json) {
+        console.log(json.hits.hits)
         return dispatch(receiveReplies(json))
       })
   }
