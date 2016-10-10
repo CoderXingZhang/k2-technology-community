@@ -1,5 +1,8 @@
 export const PUBLISH_QUESTON = 'New.PUBLISH_QUESTON'
 export const PUBLISH_SUCCESS = 'New.PUBLISH_SUCCESS'
+export const FETCH_TAGS = 'New.FETCH_TAGS'
+export const RECEIVE_TAGS = 'New.RECEIVE_TAGS'
+export const ADD_TAGS = 'New.ADD_TAGS'
 const dataHost = __DATAHOST__
 
 function cb (json) {
@@ -9,7 +12,40 @@ function cb (json) {
   }
 }
 
-export function publish (title, content, author) {
+export function addTags (tags, allTags) {
+  let hash = {}
+  let newArr = []
+  allTags.map((t) => { hash[t._source.tag] = 1 })
+  tags.map((t) => {
+    if (!hash[t]) {
+      hash[t] = 1
+      newArr.push(t)
+    }
+  })
+  return () => {
+    newArr.map((tag) => {
+      fetch(`${dataHost}/tags`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ tag })
+      })
+      .then(function (res) {
+        if (res.status >= 400) {
+          throw new Error('Put fail')
+        }
+        return res.json()
+      })
+      .then(function (json) {
+        return {}
+      })
+    })
+  }
+}
+
+export function publish (title, content, author, tags, allTags) {
   return (dispatch) => {
     var date = new Date()
     fetch(`${dataHost}/question`, {
@@ -25,7 +61,8 @@ export function publish (title, content, author) {
         createdTime: date.getTime(),
         lastTime: '',
         replies: 0,
-        likes: 0
+        likes: 0,
+        tags
       })
     })
     .then(function (res) {
@@ -35,6 +72,7 @@ export function publish (title, content, author) {
       return res.json()
     })
     .then(function (json) {
+      dispatch(addTags(tags, allTags))
       return dispatch(cb(json))
     })
   }

@@ -1,6 +1,6 @@
 export const COUNTER_INCREMENT = '<%= pascalEntityName %>.COUNTER_INCREMENT'
 
-export function increment (date) {
+export function increment (data) {
   return {
     type: COUNTER_INCREMENT,
     data
@@ -31,7 +31,7 @@ const ACTION_HANDLERS = {
   }
 }
 
-const initialState = 0
+const initialState = {}
 export default function counterReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
 

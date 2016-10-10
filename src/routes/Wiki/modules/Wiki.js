@@ -1,6 +1,8 @@
 export const RECEIVE_QUESTION = 'Wiki.RECEIVE_QUESTION'
 export const GET_QUESTION = 'Wiki.GET_QUESTION'
 export const UPDATE_REPLIES = 'Wiki.UPDATE_REPLIES'
+export const RECEIVE_TAGS = 'Wiki.RECEIVE_TAGS'
+export const GET_TAGS = 'Wiki.GET_TAGS'
 const dataHost = __DATAHOST__
 
 function receiveQuestion (data) {
@@ -15,6 +17,29 @@ function updateReplies (id, data) {
     type: UPDATE_REPLIES,
     id,
     data
+  }
+}
+
+function receiveTags (data) {
+  return {
+    type: RECEIVE_TAGS,
+    data
+  }
+}
+
+export function getTags () {
+  return (dispatch) => {
+    fetch(`${dataHost}/tags/_search`)
+      .then(function (res) {
+        if (res.status >= 400) {
+          alert(`Error Status: ${res.status}`)
+          throw new Error('Fetch fail')
+        }
+        return res.json()
+      })
+      .then(function (json) {
+        return dispatch(receiveTags(json))
+      })
   }
 }
 
@@ -55,6 +80,7 @@ export function getQuestion (query) {
         json.hits.hits.map((q) => {
           dispatch(getCountOfReplies(q._id))
         })
+        dispatch(getTags())
         return dispatch(receiveQuestion(json))
       })
   }
@@ -77,6 +103,11 @@ const ACTION_HANDLERS = {
       }
     })
     return Object.assign({}, state, {})
+  },
+  [RECEIVE_TAGS]: (state, action) => {
+    return Object.assign({}, state, {
+      tags: action.data.hits.hits
+    })
   }
 }
 

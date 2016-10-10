@@ -8,7 +8,8 @@ export const createRoutes = (store) => ({
     require.ensure([], (require) => {
       cb(null, [
         require('./New').default(store),
-        require('./Question').default(store)
+        require('./Question').default(store),
+        require('./Console').default(store)
       ])
     })
   }

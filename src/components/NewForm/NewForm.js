@@ -1,12 +1,13 @@
 import React from 'react'
 import './NewForm.scss'
 import TinyMCE from 'react-tinymce'
-// import 'tinymce'
+import Tags from 'components/Tags'
 import { Link } from 'react-router'
+const dataHost = __DATAHOST__
 
 type Props = {
   publish: Function,
-  cb: String
+  new: String
 };
 
 export class NewForm extends React.Component {
@@ -16,8 +17,11 @@ export class NewForm extends React.Component {
     super(props)
     this.handleEditorChange = this.handleEditorChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleTags = this.handleTags.bind(this)
     this.state = {
-      content: ''
+      content: '',
+      tags: [],
+      data: []
     }
   }
 
@@ -26,14 +30,32 @@ export class NewForm extends React.Component {
   }
 
   handleSubmit () {
-    this.props.publish(this.refs.title.value, this.state.content, this.refs.author.value)
+    this.props.publish(this.refs.title.value, this.state.content, this.refs.author.value,
+      this.state.tags, this.state.data)
+  }
+
+  handleTags (newTags) {
+    this.setState({ tags: newTags })
   }
 
   componentDidUpdate () {
-    if (this.props.cb.cb === 'success') {
-      this.props.cb.cb = ''
-      window.location.href = '/'
+    if (this.props.new.cb === 'success') {
+      this.props.new.cb = ''
+      document.getElementById('Home').click()
     }
+  }
+
+  componentDidMount () {
+    window.setTimeout(() => {
+      fetch(`${dataHost}/tags/_search`)
+      .then(function (res) {
+        if (res.status >= 400) { throw new Error('Put fail') }
+        return res.json()
+      })
+      .then((json) => {
+        this.setState({ data: json.hits.hits })
+      })
+    }, 1000)
   }
 
   render () {
@@ -74,6 +96,8 @@ export class NewForm extends React.Component {
         <section className='new-other-info'>
           <h4>发帖人</h4>
           <input ref='author' className='new-input' />
+          <h4>标签</h4>
+          <Tags data={this.state.data} tags={this.state.tags} handleTags={this.handleTags} />
         </section>
         <section className='new-btns-container'>
           <button className='new-submit-btn' onClick={this.handleSubmit}>发帖</button>

@@ -28,6 +28,7 @@ export class QuestionDescription extends React.Component {
 
   handleReplyState () {
     this.setState({ replyState: !this.state.replyState })
+    this.refs.replyBtn.style.display = this.refs.replyBtn.style.display === 'none' ? 'inline-block' : 'none'
   }
 
   componentWillMount () {
@@ -56,7 +57,7 @@ export class QuestionDescription extends React.Component {
           <div className='question-title'>{this.props.question && this.props.question._source.title}</div>
           <div ref='content' className='question-content-maintext' />
           <div className='quesion-created-time'>发布日期 {date.toLocaleString()}</div>
-          <button className='question-reply-btn' onClick={this.handleReplyState}>回复</button>
+          <button ref='replyBtn' className='question-reply-btn' onClick={this.handleReplyState}>回复</button>
           <button className='question-agree-btn' onClick={this.handleLike}>
             我也有此问题({this.props.question && this.props.question._source.likes})
           </button>

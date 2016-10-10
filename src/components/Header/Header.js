@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 
 export const Header = () => (
   <div className='header-container'>
-    <h4><Link to='/'>知识库</Link></h4>
+    <h4><Link id='Home' to='/'>知识库</Link></h4>
   </div>
 )
 
