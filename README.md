@@ -3,6 +3,8 @@
 A simple technology communication community for K2, It supports user who don't need login to publish question or topic, Also comments and agreeing replies.
 Base on [`ElasticSearch`](https://www.elastic.co) DB and `node.js`, libraries include `react`, `redux`, `webpack` and others are listed in [Features](#features)
 
+<img src="http://o8swc31bo.bkt.clouddn.com/wiki_2.png" />
+
 ## Table of Contents
 1. [Features](#features)
 1. [Requirements](#requirements)
