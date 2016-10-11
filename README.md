@@ -57,9 +57,6 @@ Then install dependencies and check to see it works
 $ npm install                   # Install project dependencies
 $ npm start                     # Compile and launch
 ```
-If everything works, you should see the following:
-
-<img src="http://o8swc31bo.bkt.clouddn.com/wiki_1.png" />
 
 While developing, you will probably rely mostly on `npm run dev`; however, there are additional scripts at your disposal:
 
