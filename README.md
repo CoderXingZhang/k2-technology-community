@@ -1,25 +1,23 @@
 # kMX-support-community
 
-This is kmx support community.
+A simple technology communication community for K2, It supports user who don't need login to publish question or topic, Also comments and agreeing replies.
+Base on [`ElasticSearch`](https://www.elastic.co) DB and `node.js`, libraries include `react`, `redux`, `webpack` and others are listed in [Features](#features)
 
 ## Table of Contents
 1. [Features](#features)
 1. [Requirements](#requirements)
 1. [Getting Started](#getting-started)
-1. [Application Structure](#application-structure)
 1. [Development](#development)
-  1. [Developer Tools](#developer-tools)
-  1. [Routing](#routing)
+	1. [Routing](#routing)
 1. [Testing](#testing)
 1. [Deployment](#deployment)
 1. [Build System](#build-system)
-  1. [Configuration](#configuration)
-  1. [Globals](#globals)
-  1. [Styles](#styles)
-  1. [Server](#server)
-  1. [Production Optimization](#production-optimization)
-1. [Learning Resources](#learning-resources)
-1. [FAQ](#troubleshooting)
+	1. [Configuration](#configuration)
+	1. [Globals](#globals)
+	1. [Styles](#styles)
+	1. [Server](#server)
+	1. [Production Optimization](#production-optimization)
+	1. [redux-cli](#redux-cli)
 1. [Thank You](#thank-you)
 
 ## Features
@@ -31,10 +29,12 @@ This is kmx support community.
 * [express](https://github.com/expressjs/express)
 * [karma](https://github.com/karma-runner/karma)
 * [eslint](http://eslint.org)
+* [ElasticSearch](http://www.elastic.co)
 
 ## Requirements
 * node `^4.5.0`
 * npm `^3.0.0`
+* ElasticSearch `^2.3.5`
 
 ## Getting Started
 
@@ -57,9 +57,9 @@ $ npm start                     # Compile and launch
 ```
 If everything works, you should see the following:
 
-<img src="http://i.imgur.com/zR7VRG6.png?2" />
+<img src="http://o8swc31bo.bkt.clouddn.com/wiki_1.png" />
 
-While developing, you will probably rely mostly on `npm start`; however, there are additional scripts at your disposal:
+While developing, you will probably rely mostly on `npm run dev`; however, there are additional scripts at your disposal:
 
 |`npm run <script>`|Description|
 |------------------|-----------|
@@ -74,61 +74,10 @@ While developing, you will probably rely mostly on `npm start`; however, there a
 |`lint`|Lint all `.js` files.|
 |`lint:fix`|Lint and fix all `.js` files. [Read more on this](http://eslint.org/docs/user-guide/command-line-interface.html#fix).|
 
-## Application Structure
-
-The application structure presented in this boilerplate is **fractal**, where functionality is grouped primarily by feature rather than file type. Please note, however, that this structure is only meant to serve as a guide, it is by no means prescriptive. That said, it aims to represent generally accepted guidelines and patterns for building scalable applications. If you wish to read more about this pattern, please check out this [awesome writeup](https://github.com/davezuko/react-redux-starter-kit/wiki/Fractal-Project-Structure) by [Justin Greenberg](https://github.com/justingreenberg).
-
-```
-.
-├── bin                      # Build/Start scripts
-├── blueprints               # Blueprint files for redux-cli
-├── build                    # All build-related configuration
-│   └── webpack              # Environment-specific configuration files for webpack
-├── config                   # Project configuration settings
-├── server                   # Express application that provides webpack middleware
-│   └── main.js              # Server application entry point
-├── src                      # Application source code
-│   ├── index.html           # Main HTML page container for app
-│   ├── main.js              # Application bootstrap and rendering
-│   ├── components           # Global Reusable Presentational Components
-│   ├── containers           # Global Reusable Container Components
-│   ├── layouts              # Components that dictate major page structure
-│   ├── redux                # "Ducks" location...
-│   │   └── modules          # reducer, action, creators not part of a route
-│   ├── routes               # Main route definitions and async split points
-│   │   ├── index.js         # Bootstrap main application routes with store
-│   │   └── Home             # Fractal route
-│   │       ├── index.js     # Route definitions and async split points
-│   │       ├── assets       # Assets required to render components
-│   │       ├── components   # Presentational React Components
-│   │       ├── container    # Connect components to actions and store
-│   │       ├── modules      # Collections of reducers/constants/actions
-│   │       └── routes **    # Fractal sub-routes (** optional)
-│   ├── static               # Static assets (not imported anywhere in source code)
-│   ├── store                # Redux-specific pieces
-│   │   ├── createStore.js   # Create and instrument redux store
-│   │   └── reducers.js      # Reducer registry and injection
-│   └── styles               # Application-wide styles (generally settings)
-└── tests                    # Unit tests
-```
-
 ## Development
 
-#### Developer Tools
-
-**We recommend using the [Redux DevTools Chrome Extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd).**
-Using the chrome extension allows your monitors to run on a separate thread and affords better performance and functionality. It comes with several of the most popular monitors, is easy to configure, filters actions, and doesn’t require installing any packages.
-
-However, adding the DevTools components to your project is simple. First, grab the packages from npm:
-
-```bash
-npm i --save-dev redux-devtools redux-devtools-log-monitor redux-devtools-dock-monitor
-```
-
-Then follow the [manual integration walkthrough](https://github.com/gaearon/redux-devtools/blob/master/docs/Walkthrough.md).
-
 ### Routing
-We use `react-router` [route definitions](https://github.com/reactjs/react-router/blob/master/docs/API.md#plainroute) (`<route>/index.js`) to define units of logic within our application. See the [application structure](#application-structure) section for more information.
+Use `react-router` [route definitions](https://github.com/reactjs/react-router/blob/master/docs/API.md#plainroute) (`<route>/index.js`) to define units of logic within our application. See the [application structure](#application-structure) section for more information.
 
 ## Testing
 To add a unit test, simply create a `.spec.js` file anywhere in `~/tests`. Karma will pick up on these files automatically, and Mocha and Chai will be available within your test without the need to import them. Coverage reports will be compiled to `~/coverage` by default. If you wish to change what reporters are used and where reports are compiled, you can do so by modifying `coverage_reporters` in `~/config/index.js`.
@@ -177,6 +126,7 @@ These are global variables available to you anywhere in your source code. If you
 |`__DEV__`|True when `process.env.NODE_ENV` is `development`|
 |`__PROD__`|True when `process.env.NODE_ENV` is `production`|
 |`__TEST__`|True when `process.env.NODE_ENV` is `test`|
+|`__HOSTDATA__`|`ElasticSearch` API|
 
 ### Styles
 
@@ -190,6 +140,16 @@ This starter kit comes packaged with an Express server. It's important to note t
 
 Babel is configured to use [babel-plugin-transform-runtime](https://www.npmjs.com/package/babel-plugin-transform-runtime) so transforms aren't inlined. In production, webpack will extract styles to a `.css` file, minify your JavaScript, and perform additional optimizations such as module deduplication.
 
-## Learning Resources
+### Redux-cli
 
-* [Starting out with react-redux-starter-kit](https://suspicious.website/2016/04/29/starting-out-with-react-redux-starter-kit/) is an introduction to the components used in this starter kit with a small example in the end.
+This is a an opinionated CLI for building redux/react apps quicker,
+
+```
+	npm i redux-cli -g  							# if necessary
+	redux g dumb <component name>		  # generates a dumb component and test file
+	redux g route <route name>				# generates a redux in react-router and test file
+```
+
+## Thanks
+
+* [Starting out with react-redux-starter-kit](https://github.com/davezuko/react-redux-starter-kit) is an introduction to the components used in this starter kit with a small example in the end.
