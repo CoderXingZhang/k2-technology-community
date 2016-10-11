@@ -1,4 +1,4 @@
-# kMX-support-community
+# K2-technology-community
 
 A simple technology communication community for K2, It supports user who don't need login to publish question or topic, Also comments and agreeing replies.
 Base on [`ElasticSearch`](https://www.elastic.co) DB and `node.js`, libraries include `react`, `redux`, `webpack` and others are listed in [Features](#features)
@@ -20,7 +20,7 @@ Base on [`ElasticSearch`](https://www.elastic.co) DB and `node.js`, libraries in
 	1. [Server](#server)
 	1. [Production Optimization](#production-optimization)
 	1. [redux-cli](#redux-cli)
-1. [Thank You](#thank-you)
+1. [Thanks](#thank-you)
 
 ## Features
 * [react](https://github.com/facebook/react)
