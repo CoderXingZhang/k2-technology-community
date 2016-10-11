@@ -1,3 +1,14 @@
 .Console {
+  .console-tags {
+    margin-right: 10px;
+    border: solid 1px #9b9b9b;
+    padding: 2px 5px;
+  }
 
+  .console-delete {
+    cursor: pointer;
+    margin-left: 5px;
+    color: red;
+    font-size: 12px;
+  }
 }

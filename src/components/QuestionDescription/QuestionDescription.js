@@ -23,7 +23,7 @@ export class QuestionDescription extends React.Component {
   }
 
   handleLike () {
-    this.props.doLike('question', this.props.question._id)
+    this.props.doLike('question', this.props.question._id, '', '+')
   }
 
   handleReplyState () {

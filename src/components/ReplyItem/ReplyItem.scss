@@ -55,6 +55,7 @@
     border: 1px solid #9b9b9b;
     line-height: 1em;
     border-radius: 2px;
+    margin-left: 10px;
     padding: 11px 20px;
     letter-spacing: 1px;
     outline: 0;
@@ -62,5 +63,14 @@
 
   .reply-agree-btn:hover {
     border-color: #7fc3e5;
+  }
+
+
+  .reply-divide {
+    display: inline-block;
+    margin: 0 10px;
+    height: 42px;
+    border-left: 1px solid #eee;
+    vertical-align: bottom;
   }
 }

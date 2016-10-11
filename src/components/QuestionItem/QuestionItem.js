@@ -17,13 +17,14 @@ export class QuestionItem extends React.Component {
     // } else {
     //   this.refs.main.innerHTML = tmp.childNodes[0].innerText
     // }
-    console.log(this.props.q)
     if (this.props.q.highlight) {
       this.refs.main.innerHTML = this.props.q.highlight['content']
       ? this.props.q.highlight.content[0]
       : this.props.q._source.content
     } else {
-      this.refs.main.innerHTML = this.props.q._source.content
+      var tmp = document.createElement('div')
+      tmp.innerHTML = this.props.q._source.content
+      this.refs.main.innerHTML = tmp.childNodes[0].innerText
     }
     // (tmp.childNodes[0].innerText.length < 200)
     // ? `${tmp.childNodes[0].innerText}<br />` +
@@ -57,9 +58,18 @@ export class QuestionItem extends React.Component {
               <span>标签 :</span>
               {
                 this.props.q._source.tags.map((t, i) => {
-                  return (
-                    <span ref={`<em>${t}</em>`} className='info-tag' key={i}>{t}</span>
-                  )
+                  if (this.props.q.highlight && this.props.q.highlight.tags &&
+                    this.props.q.highlight.tags[0].indexOf(t) > -1) {
+                    return (
+                      <span className='info-tag' key={i}>
+                        <em>{t}</em>
+                      </span>
+                    )
+                  } else {
+                    return (
+                      <span className='info-tag' key={i}>{t}</span>
+                    )
+                  }
                 })
               }
             </p>

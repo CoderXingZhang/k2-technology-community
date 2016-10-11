@@ -21,15 +21,18 @@ export class ReplyItem extends React.Component {
     }
   }
 
-  handleLike (e) {
-    let btn = e.target
-    btn.style.opacity = '.5'
-    btn.style.background = '#eee'
-    window.setTimeout(() => {
-      btn.style.opacity = '1'
-      btn.style.background = '#fff'
-    }, 1000)
-    this.props.doLike('answer', this.props.r._id, this.props.r._source.qId)
+  handleLike (handle) {
+    return (e) => {
+      console.log(handle, e)
+      let btn = e.target
+      btn.style.opacity = '.5'
+      btn.style.background = '#eee'
+      window.setTimeout(() => {
+        btn.style.opacity = '1'
+        btn.style.background = '#fff'
+      }, 1000)
+      this.props.doLike('answer', this.props.r._id, this.props.r._source.qId, handle)
+    }
   }
 
   handleReplyState () {
@@ -49,9 +52,11 @@ export class ReplyItem extends React.Component {
           <div className='reply-time'>{date.toLocaleString()} 回复 {this.props.r._source.to}</div>
           <div className='reply-content' ref='main' />
           <button className='reply-submit-btn' onClick={this.handleReplyState}>回复</button>
-          <button className='reply-agree-btn' onClick={this.handleLike}>
+          <div className='reply-divide' />
+          <button className='reply-agree-btn' onClick={this.handleLike('+')}>
             有用({this.props.r._source.likes})
           </button>
+          <button className='reply-agree-btn' onClick={this.handleLike('-')}>没用</button>
         </section>
         {
           this.state.replyState && (

@@ -16,14 +16,14 @@ export class QuestionSearch extends React.Component {
   handleSearch () {
     if (this.refs.searchText.value === '') {
       this.props.getQuestion({
-        'sort': [{ 'createdTime': 'desc' }],
+        'sort': [{ 'likes': 'desc' }],
         'query': { 'match_all': {} },
         'from': 0,
         'size': 100
       })
     } else {
       this.props.getQuestion({
-        'sort': [{ 'createdTime': 'desc' }],
+        'sort': [{ 'likes': 'desc' }],
         'query': {
           'bool': {
             'should': [
@@ -45,7 +45,7 @@ export class QuestionSearch extends React.Component {
 
   componentWillMount () {
     this.props.getQuestion({
-      'sort': [{ 'createdTime': 'desc' }],
+      'sort': [{ 'likes': 'desc' }],
       'query': { 'match_all': {} },
       'from': 0,
       'size': 100

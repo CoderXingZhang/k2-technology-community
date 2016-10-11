@@ -11,7 +11,7 @@ export const ANSWER_SUCCESS = 'Question.ANSWER_SUCCESS'
 
 export const UPDATE_LIKES = 'Question.UPDATE_LIKES'
 
-export function updateLikes (type, id, qId) {
+export function updateLikes (type, id, qId, handle) {
   return (dispatch) => {
     fetch(`${dataHost}/${type}/${id}/_update`, {
       method: 'POST',
@@ -20,7 +20,7 @@ export function updateLikes (type, id, qId) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        script: 'ctx._source.likes += 1'
+        script: `ctx._source.likes ${handle}= 1`
       })
     })
       .then(function (res) {
@@ -62,7 +62,7 @@ export function fetchReplies (qId) {
         query: {
           match: { qId }
         },
-        sort: [{ 'createdTime': 'asc' }]
+        sort: [{ 'likes': 'desc' }]
       })
     })
       .then(function (res) {
