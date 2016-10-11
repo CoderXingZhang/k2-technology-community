@@ -69,12 +69,15 @@ export class NewForm extends React.Component {
           <TinyMCE
             content={this.state.content}
             config={{
-              height: '400',
+              height: '350',
               paste_data_images: true,
+              content_style: 'div, p { font-size: 14px; }',
+              fontsize_formats: '8pt 10pt 12pt 14pt 16pt 18pt 20pt 26pt 36pt',
               plugins: [ 'advlist autolink lists link image charmap print preview anchor',
                 'searchreplace visualblocks code fullscreen textcolor colorpicker',
                 'insertdatetime media table contextmenu paste code'],
-              toolbar: 'insertfile undo redo | styleselect fontselect | bold italic | forecolor backcolor | alignleft' +
+              toolbar: 'insertfile undo redo | styleselect fontselect | fontsizeselect ' +
+                '| bold italic | forecolor backcolor | alignleft' +
                 ' aligncenter alignright alignjustify | bullist numlist outdent indent | link image | fullscreen',
               image_advtab: true,
               file_picker_callback: function (callback, value, meta) {
@@ -94,10 +97,10 @@ export class NewForm extends React.Component {
             onChange={this.handleEditorChange} />
         </section>
         <section className='new-other-info'>
-          <h4>发帖人</h4>
-          <input ref='author' className='new-input' />
           <h4>标签</h4>
           <Tags data={this.state.data} tags={this.state.tags} handleTags={this.handleTags} />
+          <h4>发帖人</h4>
+          <input ref='author' className='new-input' />
         </section>
         <section className='new-btns-container'>
           <button className='new-submit-btn' onClick={this.handleSubmit}>发帖</button>

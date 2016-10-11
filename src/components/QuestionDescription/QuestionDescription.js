@@ -1,11 +1,13 @@
 import React from 'react'
 import './QuestionDescription.scss'
 import Editor from 'components/LiteEditor'
+import 'font-awesome/css/font-awesome.css'
 
 type Props = {
   id: String,
   cb: String,
   question: Object,
+  replies: Object,
   getDescription: Function,
   reply: Function,
   doLike: Function
@@ -46,6 +48,7 @@ export class QuestionDescription extends React.Component {
 
   render () {
     var date = new Date(this.props.question && this.props.question._source.createdTime)
+    console.log(this.props.replies)
     return (
       <div className='QuestionDescription'>
         <section className='question-author'>
@@ -53,6 +56,12 @@ export class QuestionDescription extends React.Component {
             {this.props.question && this.props.question._source.author}
           </div>
         </section>
+        <div className='qD-icon'>
+          { this.props.replies && this.props.replies.hits.hits.length === 0
+            ? <i className='fa fa-comment-o qD-icon-start' />
+            : <i className='fa fa-comments-o qD-icon-ing' />
+          }
+        </div>
         <section className='question-content'>
           <div className='question-title'>{this.props.question && this.props.question._source.title}</div>
           <div ref='content' className='question-content-maintext' />

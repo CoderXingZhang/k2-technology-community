@@ -11,6 +11,15 @@
 
   .q-icon {
     position: absolute;
+    font-size: 24px;
+  }
+
+  .icon-ing {
+    color: #2ECC71;
+  }
+
+  .icon-start {
+    color: #AAB2BD;
   }
 
   .q-content {
@@ -46,7 +55,7 @@
   .info {
     margin: 3px 0;
     color: #888;
-    font-size: 6px
+    font-size: 12px
   }
 
   .info-replies, .info-likes {

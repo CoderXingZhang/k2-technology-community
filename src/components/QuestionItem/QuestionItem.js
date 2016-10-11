@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 import './QuestionItem.scss'
+import 'font-awesome/css/font-awesome.css'
 
 type Props = {
   q: Object
@@ -37,7 +38,10 @@ export class QuestionItem extends React.Component {
     return (
       <div className='QuestionItem'>
         <div className='q-icon'>
-          :icon:
+          { this.props.q._source.replies === 0
+            ? <i className='icon-start fa fa-comment-o' />
+            : <i className='icon-ing fa fa-comments-o' />
+          }
         </div>
         <div ref='qContent' className='q-content'>
           <section>
@@ -52,7 +56,7 @@ export class QuestionItem extends React.Component {
             </p>
             <p className='info'>
               回复 :<span className='info-replies'> {this.props.q._source.replies}</span>
-              赞同 :<span className='info-likes'> {this.props.q._source.likes}</span>
+              关注 :<span className='info-likes'> {this.props.q._source.likes}</span>
             </p>
             <p className='info'>
               <span>标签 :</span>

@@ -11,7 +11,7 @@ export const Question = (props: Props) => (
   <div className='Question'>
     <Description id={props.routeParams.questionId} getDescription={props.fetchQuestion}
       question={props.question.question} cb={props.question.cb} reply={props.reply}
-      doLike={props.updateLikes} />
+      replies={props.question.replies} doLike={props.updateLikes} />
     <RL getReplies={props.fetchReplies} replies={props.question.replies} id={props.routeParams.questionId}
       reply={props.reply} cb={props.question.cb} doLike={props.updateLikes} />
   </div>

@@ -1,4 +1,8 @@
 .header-container {
   padding: 14px 0 5px;
   border-bottom: 1px solid #D9D9D9;
+  .home-link {
+    outline: 0;
+    text-decoration: none;
+  }
 }

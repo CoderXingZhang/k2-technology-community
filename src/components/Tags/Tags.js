@@ -50,7 +50,6 @@ export class Tags extends React.Component {
   }
 
   render () {
-    console.log(this.state)
     return (
       <div className='Tags'>
         <section className='tags-label-container'>

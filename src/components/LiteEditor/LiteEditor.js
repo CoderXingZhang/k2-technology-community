@@ -43,10 +43,13 @@ export class LiteEditor extends React.Component {
             content={this.state.content}
             config={{
               height: '200',
+              content_style: 'div, p { font-size: 14px; }',
+              fontsize_formats: '8pt 10pt 12pt 14pt 16pt 18pt 20pt 26pt 36pt',
               plugins: [ 'advlist autolink lists link charmap print preview anchor',
                 'searchreplace visualblocks code fullscreen textcolor colorpicker',
                 'insertdatetime media table contextmenu paste code'],
-              toolbar: 'insertfile undo redo | styleselect fontselect | bold italic | forecolor backcolor | alignleft' +
+              toolbar: 'insertfile undo redo | styleselect fontselect | fontsizeselect ' +
+                '| bold italic | forecolor backcolor | alignleft' +
                 ' aligncenter alignright alignjustify | bullist numlist outdent indent | link | fullscreen'
             }}
             onChange={this.handleEditorChange} />

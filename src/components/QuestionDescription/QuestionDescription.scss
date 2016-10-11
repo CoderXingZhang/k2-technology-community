@@ -78,14 +78,21 @@
   }
 }
 
-.question-content::before {
-  content: '问:';
+.qD-icon {
   position: absolute;
   left: 0;
   top: 127;
   font-size: 40px;
   font-weight: 100;
-  line-height: 50px;
+  line-height: 35px;
+
+  .qD-icon-ing {
+    color: #2ECC71;
+  }
+
+  .qD-icon-start {
+    color: #AAB2BD;
+  }
 }
 
 .question-reply-editor {
