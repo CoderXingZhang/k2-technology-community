@@ -19,6 +19,7 @@ export class QuestionDescription extends React.Component {
     super(props)
     this.handleReplyState = this.handleReplyState.bind(this)
     this.handleLike = this.handleLike.bind(this)
+    this.handleEdit = this.handleEdit.bind(this)
     this.state = {
       replyState: false
     }
@@ -31,6 +32,9 @@ export class QuestionDescription extends React.Component {
   handleReplyState () {
     this.setState({ replyState: !this.state.replyState })
     this.refs.replyBtn.style.display = this.refs.replyBtn.style.display === 'none' ? 'inline-block' : 'none'
+  }
+
+  handleEdit () {
   }
 
   componentWillMount () {
@@ -48,7 +52,6 @@ export class QuestionDescription extends React.Component {
 
   render () {
     var date = new Date(this.props.question && this.props.question._source.createdTime)
-    console.log(this.props.replies)
     return (
       <div className='QuestionDescription'>
         <section className='question-author'>
@@ -70,6 +73,7 @@ export class QuestionDescription extends React.Component {
           <button className='question-agree-btn' onClick={this.handleLike}>
             我也有此问题({this.props.question && this.props.question._source.likes})
           </button>
+          <button className='question-agree-btn question-edit-btn' onClick={this.handleEdit}>编辑</button>
         </section>
         {
           this.state.replyState && (

@@ -24,7 +24,7 @@ export function addTags (tags, allTags) {
   })
   return () => {
     newArr.map((tag) => {
-      fetch(`${dataHost}/tags`, {
+      fetch(`${dataHost}/tags?refresh=wait_for`, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -48,7 +48,7 @@ export function addTags (tags, allTags) {
 export function publish (title, content, author, tags, allTags) {
   return (dispatch) => {
     var date = new Date()
-    fetch(`${dataHost}/question`, {
+    fetch(`${dataHost}/question?refresh=wait_for`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

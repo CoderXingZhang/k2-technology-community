@@ -3,6 +3,7 @@ import './NewForm.scss'
 import TinyMCE from 'react-tinymce'
 import Tags from 'components/Tags'
 import { Link } from 'react-router'
+import localStorage from 'localforage'
 const dataHost = __DATAHOST__
 
 type Props = {
@@ -18,6 +19,8 @@ export class NewForm extends React.Component {
     this.handleEditorChange = this.handleEditorChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleTags = this.handleTags.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    // this.loadTinyMCEToRender = this.loadTinyMCEToRender.bind(this)
     this.state = {
       content: '',
       tags: [],
@@ -27,6 +30,21 @@ export class NewForm extends React.Component {
 
   handleEditorChange (e) {
     this.state.content = e.target.getContent()
+    localStorage.setItem('draft', JSON.stringify({
+      title: this.refs.title.value,
+      content: this.state.content,
+      tags: this.state.tags,
+      author: this.refs.author.value
+    }))
+  }
+
+  handleChange () {
+    localStorage.setItem('draft', JSON.stringify({
+      title: this.refs.title.value,
+      content: this.state.content,
+      tags: this.state.tags,
+      author: this.refs.author.value
+    }))
   }
 
   handleSubmit () {
@@ -45,6 +63,17 @@ export class NewForm extends React.Component {
     }
   }
 
+  componentWillMount () {
+    localStorage.getItem('draft', (err, value) => {
+      value = JSON.parse(value)
+      this.state.content = value.content
+      this.state.tags = value.tags
+      this.refs.title.value = value.title
+      this.refs.author.value = value.author
+      err && console.log(err)
+    })
+  }
+
   componentDidMount () {
     window.setTimeout(() => {
       fetch(`${dataHost}/tags/_search`)
@@ -58,15 +87,22 @@ export class NewForm extends React.Component {
     }, 1000)
   }
 
+  // componentDidMount () {
+    // console.log(window, this.refs.newWysiwygEditor)
+    // this.refs.newWysiwygEditor.addEventListener('resize', () => { console.log('reseize') })
+    // window.addEventListener('resize', () => { console.log('reseize') })
+  // }
+
   render () {
     return (
       <div>
         <section className='new-title'>
-          <input ref='title' className='new-title-input' placeholder='标题' />
+          <input ref='title' className='new-title-input' placeholder='标题' onChange={this.handleChange} />
         </section>
-        <section className='new-wysiwyg-editor'>
+        <section ref='newWysiwygEditor' className='new-wysiwyg-editor'>
           <input name='image' type='file' id='upload' style={{ 'display': 'none' }} />
           <TinyMCE
+            ref='tinymce'
             content={this.state.content}
             config={{
               height: '350',
@@ -100,7 +136,7 @@ export class NewForm extends React.Component {
           <h4>标签</h4>
           <Tags data={this.state.data} tags={this.state.tags} handleTags={this.handleTags} />
           <h4>发帖人</h4>
-          <input ref='author' className='new-input' />
+          <input ref='author' className='new-input' onChange={this.handleChange} />
         </section>
         <section className='new-btns-container'>
           <button className='new-submit-btn' onClick={this.handleSubmit}>发帖</button>

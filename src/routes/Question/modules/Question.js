@@ -13,7 +13,7 @@ export const UPDATE_LIKES = 'Question.UPDATE_LIKES'
 
 export function updateLikes (type, id, qId, handle) {
   return (dispatch) => {
-    fetch(`${dataHost}/${type}/${id}/_update`, {
+    fetch(`${dataHost}/${type}/${id}/_update?refresh=wait_for`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -112,7 +112,7 @@ function cb (data) {
 export function reply (qId, author, content, to) {
   return (dispatch) => {
     var date = new Date()
-    fetch(`${dataHost}/answer`, {
+    fetch(`${dataHost}/answer?refresh=wait_for`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
