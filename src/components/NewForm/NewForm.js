@@ -87,7 +87,6 @@ export class NewForm extends React.Component {
   componentWillMount () {
     localStorage.getItem('reEdit', (err, value) => {
       if (value) {
-        console.log('reEdit')
         err && console.log(err)
         value = JSON.parse(value)
         this.state.content = value.content
@@ -95,7 +94,6 @@ export class NewForm extends React.Component {
         this.refs.title.value = value.title
         this.refs.author.value = value.author
       } else {
-        console.log('draft')
         localStorage.getItem('draft', (err, value) => {
           err && console.log(err)
           value = JSON.parse(value)
