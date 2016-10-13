@@ -3,6 +3,7 @@ import './QuestionDescription.scss'
 import Editor from 'components/LiteEditor'
 import 'font-awesome/css/font-awesome.css'
 import localStorage from 'localforage'
+import { Link } from 'react-router'
 
 type Props = {
   id: String,
@@ -41,9 +42,12 @@ export class QuestionDescription extends React.Component {
       title: this.props.question._source.title,
       content: this.props.question._source.content,
       tags: this.props.question._source.tags,
-      author: this.props.question._source.author
+      author: this.props.question._source.author,
+      likes: this.props.question._source.likes
     }))
-    location.href = '/new'
+    window.setTimeout(() => {
+      document.getElementById('linkToEditor').click()
+    }, 500)
   }
 
   componentWillMount () {
@@ -82,6 +86,7 @@ export class QuestionDescription extends React.Component {
           <button className='question-agree-btn' onClick={this.handleLike}>
             我也有此问题({this.props.question && this.props.question._source.likes})
           </button>
+          <Link id='linkToEditor' to='/new' />
           <button className='question-agree-btn question-edit-btn' onClick={this.handleEdit}>编辑</button>
         </section>
         {

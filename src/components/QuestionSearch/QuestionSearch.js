@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 import './QuestionSearch.scss'
+import localStorage from 'localforage'
 
 type Props = {
   getQuestion: Function
@@ -44,6 +45,10 @@ export class QuestionSearch extends React.Component {
   }
 
   componentWillMount () {
+    localStorage.removeItem('reEdit').then(() => {
+      console.log('reEdit is cleared!')
+    }).catch((err) => { console.log(err) })
+
     this.props.getQuestion({
       'sort': [{ 'likes': 'desc' }],
       'query': { 'match_all': {} },

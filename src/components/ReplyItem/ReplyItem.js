@@ -23,7 +23,6 @@ export class ReplyItem extends React.Component {
 
   handleLike (handle) {
     return (e) => {
-      console.log(handle, e)
       let btn = e.target
       btn.style.opacity = '.5'
       btn.style.background = '#eee'
@@ -37,6 +36,10 @@ export class ReplyItem extends React.Component {
 
   handleReplyState () {
     this.setState({ replyState: !this.state.replyState })
+  }
+
+  componentDidUpdate () {
+    this.refs.main.innerHTML = this.props.r._source.content
   }
 
   componentDidMount () {

@@ -45,7 +45,7 @@ export function addTags (tags, allTags) {
   }
 }
 
-export function publish (title, content, author, tags, allTags, id) {
+export function publish (title, content, author, tags, allTags, id, likes) {
   return (dispatch) => {
     var date = new Date()
     fetch(id ? `${dataHost}/question/${id}?refresh=wait_for` : `${dataHost}/question?refresh=wait_for`,
@@ -62,7 +62,7 @@ export function publish (title, content, author, tags, allTags, id) {
           createdTime: date.getTime(),
           lastTime: '',
           replies: 0,
-          likes: 0,
+          likes: id ? likes : 0,
           tags
         })
       })

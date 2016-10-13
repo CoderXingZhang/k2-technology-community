@@ -73,7 +73,6 @@ export function fetchReplies (qId) {
         return res.json()
       })
       .then(function (json) {
-        console.log(json.hits.hits)
         return dispatch(receiveReplies(json))
       })
   }
