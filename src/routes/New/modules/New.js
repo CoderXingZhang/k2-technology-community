@@ -45,26 +45,27 @@ export function addTags (tags, allTags) {
   }
 }
 
-export function publish (title, content, author, tags, allTags) {
+export function publish (title, content, author, tags, allTags, id) {
   return (dispatch) => {
     var date = new Date()
-    fetch(`${dataHost}/question?refresh=wait_for`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        title,
-        author,
-        content,
-        createdTime: date.getTime(),
-        lastTime: '',
-        replies: 0,
-        likes: 0,
-        tags
+    fetch(id ? `${dataHost}/question/${id}?refresh=wait_for` : `${dataHost}/question?refresh=wait_for`,
+      {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          title,
+          author,
+          content,
+          createdTime: date.getTime(),
+          lastTime: '',
+          replies: 0,
+          likes: 0,
+          tags
+        })
       })
-    })
     .then(function (res) {
       if (res.status >= 400) {
         throw new Error('Put fail')

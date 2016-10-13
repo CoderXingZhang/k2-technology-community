@@ -48,8 +48,20 @@ export class NewForm extends React.Component {
   }
 
   handleSubmit () {
-    this.props.publish(this.refs.title.value, this.state.content, this.refs.author.value,
-      this.state.tags, this.state.data)
+    localStorage.getItem('reEdit', (err, value) => {
+      err && console.log(err)
+      if (!value) {
+        this.props.publish(this.refs.title.value, this.state.content, this.refs.author.value,
+          this.state.tags, this.state.data)
+      } else {
+        value = JSON.parse(value)
+        this.props.publish(this.refs.title.value, this.state.content, this.refs.author.value,
+          this.state.tags, this.state.data, value.id)
+        localStorage.removeItem('reEdit').then(() => {
+          console.log('reEdit is cleared!')
+        }).catch((err) => { console.log(err) })
+      }
+    })
   }
 
   handleTags (newTags) {
@@ -59,19 +71,37 @@ export class NewForm extends React.Component {
   componentDidUpdate () {
     if (this.props.new.cb === 'success') {
       this.props.new.cb = ''
+      localStorage.removeItem('draft').then(() => {
+        console.log('Draft is cleared!')
+      }).catch((err) => { console.log(err) })
       document.getElementById('Home').click()
     }
   }
 
   componentWillMount () {
-    localStorage.getItem('draft', (err, value) => {
-      value = JSON.parse(value)
-      this.state.content = value.content
-      this.state.tags = value.tags
-      this.refs.title.value = value.title
-      this.refs.author.value = value.author
-      err && console.log(err)
-    })
+    localStorage.keys().then((keys) => {
+      if (keys.find((k) => k === 'reEdit')) {
+        localStorage.getItem('reEdit', (err, value) => {
+          err && console.log(err)
+          value = JSON.parse(value)
+          this.state.content = value.content
+          this.state.tags = value.tags
+          this.refs.title.value = value.title
+          this.refs.author.value = value.author
+        })
+      } else {
+        localStorage.getItem('draft', (err, value) => {
+          err && console.log(err)
+          value = JSON.parse(value)
+          if (value) {
+            this.state.content = value.content
+            this.state.tags = value.tags
+            this.refs.title.value = value.title
+            this.refs.author.value = value.author
+          }
+        })
+      }
+    }).catch((err) => { console.log(err) })
   }
 
   componentDidMount () {

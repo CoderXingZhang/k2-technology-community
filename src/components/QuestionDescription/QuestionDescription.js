@@ -2,6 +2,7 @@ import React from 'react'
 import './QuestionDescription.scss'
 import Editor from 'components/LiteEditor'
 import 'font-awesome/css/font-awesome.css'
+import localStorage from 'localforage'
 
 type Props = {
   id: String,
@@ -35,6 +36,14 @@ export class QuestionDescription extends React.Component {
   }
 
   handleEdit () {
+    localStorage.setItem('reEdit', JSON.stringify({
+      id: this.props.question._id,
+      title: this.props.question._source.title,
+      content: this.props.question._source.content,
+      tags: this.props.question._source.tags,
+      author: this.props.question._source.author
+    }))
+    location.href = '/new'
   }
 
   componentWillMount () {
