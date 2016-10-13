@@ -20,7 +20,7 @@ export class NewForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleTags = this.handleTags.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    // this.loadTinyMCEToRender = this.loadTinyMCEToRender.bind(this)
+    this.loadTinyMCEDetect = this.loadTinyMCEDetect.bind(this)
     this.state = {
       content: '',
       tags: [],
@@ -75,7 +75,11 @@ export class NewForm extends React.Component {
   }
 
   componentDidMount () {
-    window.setTimeout(() => {
+    this.loadTinyMCEDetect()
+  }
+
+  loadTinyMCEDetect () {
+    if (document.getElementsByClassName('mce-tinymce')[0]) {
       fetch(`${dataHost}/tags/_search`)
       .then(function (res) {
         if (res.status >= 400) { throw new Error('Put fail') }
@@ -84,14 +88,10 @@ export class NewForm extends React.Component {
       .then((json) => {
         this.setState({ data: json.hits.hits })
       })
-    }, 1000)
+    } else {
+      setTimeout(this.loadTinyMCEDetect, 100)
+    }
   }
-
-  // componentDidMount () {
-    // console.log(window, this.refs.newWysiwygEditor)
-    // this.refs.newWysiwygEditor.addEventListener('resize', () => { console.log('reseize') })
-    // window.addEventListener('resize', () => { console.log('reseize') })
-  // }
 
   render () {
     return (
