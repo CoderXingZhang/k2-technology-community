@@ -10,27 +10,16 @@ export class QuestionItem extends React.Component {
   props: Props;
 
   componentDidUpdate () {
-    // var tmp = document.createElement('div')
-    // tmp.innerHTML = this.props.q._source.content
-    // if (tmp.childNodes[0].innerText.length < 200) {
-    //   this.refs.main.innerHTML = tmp.childNodes[0].innerText +
-    //     [].slice.call(tmp.childNodes).find((n, i) => { return (i > 0 && n.innerText) }).innerText
-    // } else {
-    //   this.refs.main.innerHTML = tmp.childNodes[0].innerText
-    // }
+    var parser = new DOMParser()
     if (this.props.q.highlight) {
       this.refs.main.innerHTML = this.props.q.highlight['content']
       ? this.props.q.highlight.content[0]
-      : this.props.q._source.content
+      : parser.parseFromString(this.props.q._source.content, 'text/html')
+        .childNodes[0].childNodes[1].childNodes[0].innerText
     } else {
-      var tmp = document.createElement('div')
-      tmp.innerHTML = this.props.q._source.content
-      this.refs.main.innerHTML = tmp.childNodes[0].innerText
+      var el = parser.parseFromString(this.props.q._source.content, 'text/html')
+      this.refs.main.innerHTML = el.childNodes[0].childNodes[1].childNodes[0].innerText
     }
-    // (tmp.childNodes[0].innerText.length < 200)
-    // ? `${tmp.childNodes[0].innerText}<br />` +
-    //   [].slice.call(tmp.childNodes).find((n, i) => { return (i > 0 && n.innerText) }).innerText
-    // : tmp.childNodes[0].innerText
   }
 
   render () {
@@ -63,7 +52,7 @@ export class QuestionItem extends React.Component {
               {
                 this.props.q._source.tags.map((t, i) => {
                   if (this.props.q.highlight && this.props.q.highlight.tags &&
-                    this.props.q.highlight.tags[0].indexOf(t) > -1) {
+                    this.props.q.highlight.tags[0].replace(/<em>|<\/em>/g, '').indexOf(t) > -1) {
                     return (
                       <span className='info-tag' key={i}>
                         <em>{t}</em>
